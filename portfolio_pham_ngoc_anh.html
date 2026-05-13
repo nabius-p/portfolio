@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pham Ngoc Anh — UI/UX Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F5F0E8;
+    --dark: #1A1A18;
+    --accent: #C8622A;
+    --muted: #7A7A72;
+    --border: #DDD8CE;
+    --card: #FFFFFF;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--dark);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 48px;
+    background: rgba(245,240,232,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: 'Instrument Serif', serif;
+    font-size: 18px;
+    letter-spacing: 0.01em;
+  }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--dark); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 80px 64px 80px 64px;
+    border-right: 1px solid var(--border);
+  }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 32px;
+  }
+  .hero-tag::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--accent);
+  }
+  .hero-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(52px, 6vw, 80px);
+    line-height: 1.05;
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+  }
+  .hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+  .hero-desc {
+    font-size: 16px;
+    color: var(--muted);
+    max-width: 400px;
+    line-height: 1.75;
+    margin-bottom: 48px;
+  }
+  .hero-cta {
+    display: flex; gap: 16px; flex-wrap: wrap;
+  }
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--dark);
+    color: var(--cream);
+    text-decoration: none;
+    padding: 14px 28px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--accent); transform: translateY(-1px); }
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid var(--border);
+    color: var(--dark);
+    text-decoration: none;
+    padding: 14px 28px;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    transition: border-color 0.2s, transform 0.15s;
+  }
+  .btn-secondary:hover { border-color: var(--dark); transform: translateY(-1px); }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 80px 64px;
+  }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 48px;
+  }
+  .stat-cell {
+    background: var(--cream);
+    padding: 28px 24px;
+  }
+  .stat-num {
+    font-family: 'Instrument Serif', serif;
+    font-size: 36px;
+    color: var(--dark);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .hero-info { display: flex; flex-direction: column; gap: 12px; }
+  .info-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .info-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+
+  /* SECTION LAYOUT */
+  section { padding: 120px 64px; }
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 64px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-num {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  /* ABOUT */
+  #about { background: var(--dark); color: var(--cream); }
+  #about .section-title { color: var(--cream); }
+  #about .section-num { color: rgba(245,240,232,0.4); }
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 80px;
+    align-items: start;
+  }
+  .about-text p {
+    font-size: 18px;
+    line-height: 1.8;
+    color: rgba(245,240,232,0.75);
+    margin-bottom: 24px;
+  }
+  .about-text strong { color: var(--cream); font-weight: 500; }
+  .about-highlight {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    font-style: italic;
+    color: var(--accent);
+    line-height: 1.4;
+    margin-top: 40px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(245,240,232,0.12);
+  }
+  .about-aside { display: flex; flex-direction: column; gap: 24px; }
+  .aside-block {
+    padding: 24px;
+    border: 1px solid rgba(245,240,232,0.1);
+  }
+  .aside-label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.35);
+    margin-bottom: 12px;
+  }
+  .aside-value {
+    font-size: 15px;
+    color: rgba(245,240,232,0.8);
+    line-height: 1.6;
+  }
+
+  /* SKILLS */
+  #skills { background: var(--cream); }
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .skill-group {
+    background: var(--cream);
+    padding: 40px 36px;
+    transition: background 0.2s;
+  }
+  .skill-group:hover { background: #FFFDF9; }
+  .skill-group-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+  }
+  .skill-group-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 20px;
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+  }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .skill-tag {
+    font-size: 12px;
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    letter-spacing: 0.02em;
+  }
+  .skill-tag.primary {
+    background: var(--dark);
+    color: var(--cream);
+    border-color: var(--dark);
+  }
+  .skill-tag.accent {
+    background: var(--accent);
+    color: var(--cream);
+    border-color: var(--accent);
+  }
+
+  /* PROJECTS */
+  #projects { background: var(--cream); padding-top: 0; }
+  .project-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1px solid var(--border);
+    margin-bottom: 2px;
+    transition: border-color 0.2s;
+    background: var(--card);
+  }
+  .project-card:hover { border-color: var(--dark); }
+  .project-card.reverse { direction: rtl; }
+  .project-card.reverse > * { direction: ltr; }
+  .project-visual {
+    background: #1A1A18;
+    min-height: 420px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 48px;
+    position: relative;
+    overflow: hidden;
+  }
+  .project-visual.warm { background: #2C1810; }
+  .project-visual.cool { background: #0F1A2C; }
+
+  /* Mock UI inside project cards */
+  .mock-ui {
+    width: 100%;
+    max-width: 320px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+  }
+  .mock-topbar {
+    background: rgba(255,255,255,0.08);
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .mock-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .mock-sidebar-layout { display: flex; height: 220px; }
+  .mock-sidebar {
+    width: 72px;
+    background: rgba(0,0,0,0.3);
+    border-right: 1px solid rgba(255,255,255,0.05);
+    padding: 12px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .mock-sidebar-item {
+    height: 8px;
+    border-radius: 2px;
+    background: rgba(255,255,255,0.15);
+  }
+  .mock-sidebar-item.active { background: #C8622A; }
+  .mock-content { flex: 1; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+  .mock-row { display: flex; gap: 6px; }
+  .mock-bar {
+    height: 6px; border-radius: 2px;
+    background: rgba(255,255,255,0.12);
+  }
+  .mock-card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 4px; }
+  .mock-mini-card {
+    height: 40px; border-radius: 2px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .mock-chart {
+    height: 60px;
+    display: flex;
+    align-items: flex-end;
+    gap: 4px;
+    margin-top: 4px;
+  }
+  .mock-bar-v {
+    flex: 1;
+    background: rgba(200, 98, 42, 0.4);
+    border-radius: 2px 2px 0 0;
+    transition: all 0.3s;
+  }
+  .mock-bar-v.hi { background: rgba(200, 98, 42, 0.9); }
+
+  /* Homepage mock */
+  .mock-home { padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+  .mock-hero-block {
+    height: 56px; border-radius: 2px;
+    background: linear-gradient(135deg, rgba(200,98,42,0.3), rgba(200,98,42,0.1));
+    border: 1px solid rgba(200,98,42,0.2);
+  }
+  .mock-product-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .mock-product-card {
+    height: 52px; border-radius: 2px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .project-info {
+    padding: 48px 52px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .project-index {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .project-title {
+    font-family: 'Instrument Serif', serif;
+    font-size: 30px;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-bottom: 12px;
+  }
+  .project-role {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+  .project-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.75;
+    margin-bottom: 28px;
+  }
+  .project-metrics {
+    display: flex;
+    gap: 24px;
+    margin-bottom: 32px;
+    padding: 20px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .metric { text-align: center; }
+  .metric-val {
+    font-family: 'Instrument Serif', serif;
+    font-size: 24px;
+    color: var(--accent);
+    display: block;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .metric-label {
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+  .project-tag {
+    font-size: 11px;
+    padding: 5px 12px;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+  .project-process { display: flex; flex-direction: column; gap: 8px; }
+  .process-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .process-num {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    font-weight: 500;
+    min-width: 20px;
+    margin-top: 2px;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    color: var(--cream);
+    padding: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(245,240,232,0.08);
+  }
+  .footer-name {
+    font-family: 'Instrument Serif', serif;
+    font-size: 28px;
+    letter-spacing: -0.01em;
+  }
+  .footer-sub {
+    font-size: 13px;
+    color: rgba(245,240,232,0.4);
+    margin-top: 6px;
+    letter-spacing: 0.04em;
+  }
+  .footer-contacts { display: flex; flex-direction: column; gap: 8px; align-items: flex-end; }
+  .footer-contact {
+    font-size: 13px;
+    color: rgba(245,240,232,0.6);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-contact:hover { color: var(--accent); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-left > * {
+    animation: fadeUp 0.6s ease both;
+  }
+  .hero-tag { animation-delay: 0.1s; }
+  .hero-name { animation-delay: 0.2s; }
+  .hero-desc { animation-delay: 0.3s; }
+  .hero-cta { animation-delay: 0.4s; }
+  .hero-stats { animation: fadeUp 0.6s 0.3s ease both; }
+  .hero-info { animation: fadeUp 0.6s 0.45s ease both; }
+
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { gap: 20px; }
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-left { padding: 60px 24px 40px; border-right: none; border-bottom: 1px solid var(--border); }
+    .hero-right { padding: 40px 24px 60px; }
+    section { padding: 80px 24px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .project-card, .project-card.reverse { grid-template-columns: 1fr; direction: ltr; }
+    .project-visual { min-height: 240px; }
+    .project-info { padding: 32px 28px; }
+    footer { flex-direction: column; gap: 32px; align-items: flex-start; }
+    .footer-contacts { align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Pham Ngoc Anh</div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-tag">UI/UX Designer · MIS Student</div>
+    <h1 class="hero-name">Designing<br>systems that<br><em>make sense.</em></h1>
+    <p class="hero-desc">
+      MIS student at VNU International School who turns complex business requirements into clear, usable interfaces — from research to prototype.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">View Projects ↓</a>
+      <a href="mailto:phngocanh2004@gmail.com" class="btn-secondary">Get in touch →</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-stats">
+      <div class="stat-cell">
+        <div class="stat-num">3</div>
+        <div class="stat-label">School Projects</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">40+</div>
+        <div class="stat-label">Users Tested</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">87.5%</div>
+        <div class="stat-label">User Satisfaction</div>
+      </div>
+      <div class="stat-cell">
+        <div class="stat-num">3.26</div>
+        <div class="stat-label">GPA</div>
+      </div>
+    </div>
+    <div class="hero-info">
+      <div class="info-row"><div class="info-dot"></div>Gia Lam, Ha Noi</div>
+      <div class="info-row"><div class="info-dot"></div>IELTS 6.0 · Aptis B2</div>
+      <div class="info-row"><div class="info-dot"></div>Available for Internship</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-header">
+    <div>
+      <div class="section-num">01 — About</div>
+      <h2 class="section-title">Who I am</h2>
+    </div>
+  </div>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I'm <strong>Pham Ngoc Anh</strong>, a final-year student majoring in <strong>Management Information Systems</strong> at VNU International School. My background sits at the intersection of business analysis and interface design — I understand how systems work, and I design so that people can use them effortlessly.
+      </p>
+      <p>
+        Throughout my studies, I've led UX design across multiple projects: conducting <strong>user interviews and surveys</strong>, mapping business processes into user personas and flows, building wireframes and interactive prototypes in <strong>Figma</strong>, and running usability tests with real users.
+      </p>
+      <p>
+        What makes me different: I come from <strong>MIS, not pure design</strong>. I think in systems — roles, permissions, data flows, workflows. When I design a dashboard, I know what the data means and who actually needs to see it.
+      </p>
+      <div class="about-highlight">
+        "Good UX for a business system isn't just beautiful — it has to be correct."
+      </div>
+    </div>
+    <div class="about-aside">
+      <div class="aside-block">
+        <div class="aside-label">Currently</div>
+        <div class="aside-value">Final year · Management Information Systems<br>VNU International School</div>
+      </div>
+      <div class="aside-block">
+        <div class="aside-label">Focus Areas</div>
+        <div class="aside-value">B2B Platform Design<br>Dashboard & Data UI<br>UX Research & Testing<br>Information Architecture</div>
+      </div>
+      <div class="aside-block">
+        <div class="aside-label">Tools</div>
+        <div class="aside-value">Figma · WordPress · HTML/CSS · UML</div>
+      </div>
+      <div class="aside-block">
+        <div class="aside-label">Languages</div>
+        <div class="aside-value">Vietnamese (Native)<br>English — IELTS 6.0 · Aptis B2</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-header">
+    <div>
+      <div class="section-num">02 — Skills</div>
+      <h2 class="section-title">What I bring</h2>
+    </div>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-group">
+      <div class="skill-group-icon">◎</div>
+      <div class="skill-group-name">UX Design</div>
+      <div class="skill-tags">
+        <span class="skill-tag primary">Figma</span>
+        <span class="skill-tag primary">Wireframing</span>
+        <span class="skill-tag primary">Prototyping</span>
+        <span class="skill-tag accent">User Research</span>
+        <span class="skill-tag">Usability Testing</span>
+        <span class="skill-tag">User Persona</span>
+        <span class="skill-tag">User Journey</span>
+        <span class="skill-tag">User Flow</span>
+        <span class="skill-tag">Information Architecture</span>
+        <span class="skill-tag">Sitemap Design</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-icon">⬡</div>
+      <div class="skill-group-name">Systems & Analysis</div>
+      <div class="skill-tags">
+        <span class="skill-tag primary">Business Process Analysis</span>
+        <span class="skill-tag primary">UML Diagrams</span>
+        <span class="skill-tag accent">RBAC Design</span>
+        <span class="skill-tag">Use Case Diagrams</span>
+        <span class="skill-tag">Requirements Analysis</span>
+        <span class="skill-tag">Data Flow Mapping</span>
+        <span class="skill-tag">B2B Platform Design</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-icon">◻</div>
+      <div class="skill-group-name">Development & CMS</div>
+      <div class="skill-tags">
+        <span class="skill-tag primary">WordPress</span>
+        <span class="skill-tag primary">HTML · CSS</span>
+        <span class="skill-tag">WooCommerce</span>
+        <span class="skill-tag">Plugin Configuration</span>
+        <span class="skill-tag">Responsive Design</span>
+        <span class="skill-tag">Frontend Implementation</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-icon">◈</div>
+      <div class="skill-group-name">Research Methods</div>
+      <div class="skill-tags">
+        <span class="skill-tag primary">Survey Design</span>
+        <span class="skill-tag primary">User Interviews</span>
+        <span class="skill-tag">Google Forms</span>
+        <span class="skill-tag">Quantitative Analysis</span>
+        <span class="skill-tag">Usability Metrics</span>
+        <span class="skill-tag">Feedback Iteration</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-icon">◷</div>
+      <div class="skill-group-name">Collaboration</div>
+      <div class="skill-tags">
+        <span class="skill-tag primary">Team Leadership</span>
+        <span class="skill-tag">Cross-functional Collab</span>
+        <span class="skill-tag">Design Handoff</span>
+        <span class="skill-tag">Stakeholder Communication</span>
+        <span class="skill-tag">Agile Workflow</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="skill-group-icon">◐</div>
+      <div class="skill-group-name">Soft Skills</div>
+      <div class="skill-tags">
+        <span class="skill-tag accent">Analytical Thinking</span>
+        <span class="skill-tag">Attention to Detail</span>
+        <span class="skill-tag">Fast Learner</span>
+        <span class="skill-tag">Problem Solving</span>
+        <span class="skill-tag">English (IELTS 6.0)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <div>
+      <div class="section-num">03 — Projects</div>
+      <h2 class="section-title">Selected work</h2>
+    </div>
+  </div>
+
+  <!-- Project 1: Pauget -->
+  <div class="project-card">
+    <div class="project-visual warm">
+      <div class="mock-ui">
+        <div class="mock-topbar">
+          <div class="mock-dot" style="background:#C8622A"></div>
+          <div class="mock-dot" style="background:rgba(255,255,255,0.2)"></div>
+          <div class="mock-dot" style="background:rgba(255,255,255,0.1)"></div>
+        </div>
+        <div class="mock-sidebar-layout">
+          <div class="mock-sidebar">
+            <div class="mock-sidebar-item active"></div>
+            <div class="mock-sidebar-item"></div>
+            <div class="mock-sidebar-item"></div>
+            <div class="mock-sidebar-item"></div>
+            <div class="mock-sidebar-item"></div>
+            <div class="mock-sidebar-item"></div>
+          </div>
+          <div class="mock-content">
+            <div class="mock-card-grid">
+              <div class="mock-mini-card"></div>
+              <div class="mock-mini-card"></div>
+              <div class="mock-mini-card"></div>
+              <div class="mock-mini-card"></div>
+            </div>
+            <div class="mock-chart">
+              <div class="mock-bar-v" style="height:40%"></div>
+              <div class="mock-bar-v" style="height:60%"></div>
+              <div class="mock-bar-v hi" style="height:85%"></div>
+              <div class="mock-bar-v" style="height:50%"></div>
+              <div class="mock-bar-v" style="height:70%"></div>
+              <div class="mock-bar-v hi" style="height:95%"></div>
+              <div class="mock-bar-v" style="height:55%"></div>
+            </div>
+            <div class="mock-row">
+              <div class="mock-bar" style="width:100%;height:6px"></div>
+            </div>
+            <div class="mock-row">
+              <div class="mock-bar" style="width:80%;height:6px"></div>
+            </div>
+            <div class="mock-row">
+              <div class="mock-bar" style="width:65%;height:6px"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="project-info">
+      <div class="project-index">Project 01 · 2025</div>
+      <h3 class="project-title">Pauget Pet Shop —<br>B2B Management Platform</h3>
+      <div class="project-role">● UI/UX Designer & Frontend</div>
+      <p class="project-desc">
+        Designed a full-stack wholesale management system for a pet supply business — replacing manual Zalo/spreadsheet workflows with a role-based platform for Admin, Sales, and Accountants. Led wireframing, plugin selection, WordPress implementation, and usability testing.
+      </p>
+      <div class="project-metrics">
+        <div class="metric">
+          <span class="metric-val">97.5%</span>
+          <span class="metric-label">Navigation ease</span>
+        </div>
+        <div class="metric">
+          <span class="metric-val">87.5%</span>
+          <span class="metric-label">User satisfaction</span>
+        </div>
+        <div class="metric">
+          <span class="metric-val">40</span>
+          <span class="metric-label">Users tested</span>
+        </div>
+      </div>
+      <div class="project-tags">
+        <span class="project-tag">Figma</span>
+        <span class="project-tag">WordPress</span>
+        <span class="project-tag">WooCommerce</span>
+        <span class="project-tag">RBAC Design</span>
+        <span class="project-tag">Usability Testing</span>
+        <span class="project-tag">B2B</span>
+      </div>
+      <div class="project-process">
+        <div class="process-step"><span class="process-num">01</span><span>User research → Identified pain points of 3 distinct user roles</span></div>
+        <div class="process-step"><span class="process-num">02</span><span>Sitemap & RBAC design for Admin / Sales / Accountant</span></div>
+        <div class="process-step"><span class="process-num">03</span><span>11 wireframes → Hi-fi prototype in Figma with full user flows</span></div>
+        <div class="process-step"><span class="process-num">04</span><span>WordPress implementation with WooCommerce & custom plugins</span></div>
+        <div class="process-step"><span class="process-num">05</span><span>Survey-based usability testing with 40 real users</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Project 2: Web Design -->
+  <div class="project-card reverse">
+    <div class="project-info">
+      <div class="project-index">Project 02 · 2024</div>
+      <h3 class="project-title">Responsive Web Design<br>& Front-end Development</h3>
+      <div class="project-role">● UI Designer</div>
+      <p class="project-desc">
+        Designed and implemented a responsive website following mobile-first principles. Translated visual designs into working HTML/CSS/JS code, conducted usability testing, and iterated on layout and interaction patterns based on real user feedback.
+      </p>
+      <div class="project-tags">
+        <span class="project-tag">HTML · CSS · JS</span>
+        <span class="project-tag">Mobile-first</span>
+        <span class="project-tag">Responsive Design</span>
+        <span class="project-tag">Usability Testing</span>
+        <span class="project-tag">UI Implementation</span>
+      </div>
+      <div class="project-process">
+        <div class="process-step"><span class="process-num">01</span><span>Designed responsive layouts for mobile, tablet, and desktop</span></div>
+        <div class="process-step"><span class="process-num">02</span><span>Implemented UI in HTML/CSS/JavaScript</span></div>
+        <div class="process-step"><span class="process-num">03</span><span>Ran usability sessions and refined based on feedback</span></div>
+        <div class="process-step"><span class="process-num">04</span><span>Optimized visual elements for user engagement</span></div>
+      </div>
+    </div>
+    <div class="project-visual cool">
+      <div class="mock-ui">
+        <div class="mock-topbar">
+          <div class="mock-dot" style="background:#3B8BD4"></div>
+          <div class="mock-dot" style="background:rgba(255,255,255,0.2)"></div>
+          <div class="mock-dot" style="background:rgba(255,255,255,0.1)"></div>
+        </div>
+        <div class="mock-home">
+          <div class="mock-hero-block"></div>
+          <div class="mock-product-row">
+            <div class="mock-product-card"></div>
+            <div class="mock-product-card"></div>
+            <div class="mock-product-card"></div>
+          </div>
+          <div class="mock-row" style="margin-top:4px">
+            <div class="mock-bar" style="width:70%;height:6px;background:rgba(59,139,212,0.3)"></div>
+          </div>
+          <div class="mock-row">
+            <div class="mock-bar" style="width:50%;height:6px;background:rgba(59,139,212,0.2)"></div>
+          </div>
+          <div class="mock-product-row" style="margin-top:4px">
+            <div class="mock-product-card" style="height:36px"></div>
+            <div class="mock-product-card" style="height:36px"></div>
+            <div class="mock-product-card" style="height:36px"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Project 3: WordPress -->
+  <div class="project-card">
+    <div class="project-visual" style="background:#14201A">
+      <div class="mock-ui">
+        <div class="mock-topbar">
+          <div class="mock-dot" style="background:#1D9E75"></div>
+          <div class="mock-dot" style="background:rgba(255,255,255,0.2)"></div>
+          <div class="mock-dot" style="background:rgba(255,255,255,0.1)"></div>
+        </div>
+        <div class="mock-sidebar-layout">
+          <div class="mock-sidebar" style="background:rgba(29,158,117,0.1)">
+            <div class="mock-sidebar-item" style="background:#1D9E75"></div>
+            <div class="mock-sidebar-item"></div>
+            <div class="mock-sidebar-item"></div>
+            <div class="mock-sidebar-item"></div>
+          </div>
+          <div class="mock-content">
+            <div class="mock-row"><div class="mock-bar" style="width:90%;height:8px;background:rgba(29,158,117,0.4)"></div></div>
+            <div class="mock-row"><div class="mock-bar" style="width:100%;height:6px"></div></div>
+            <div class="mock-row"><div class="mock-bar" style="width:80%;height:6px"></div></div>
+            <div style="height:8px"></div>
+            <div class="mock-row"><div class="mock-bar" style="width:70%;height:6px"></div></div>
+            <div class="mock-row"><div class="mock-bar" style="width:100%;height:6px"></div></div>
+            <div class="mock-row"><div class="mock-bar" style="width:60%;height:6px"></div></div>
+            <div style="height:8px"></div>
+            <div class="mock-mini-card" style="height:28px;background:rgba(29,158,117,0.15);border-color:rgba(29,158,117,0.2)"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="project-info">
+      <div class="project-index">Project 03 · 2024</div>
+      <h3 class="project-title">WordPress UX<br>& Content Design</h3>
+      <div class="project-role">● UX Designer</div>
+      <p class="project-desc">
+        Designed the information architecture and navigation of a WordPress website to improve user experience. Customized themes and plugins to align with UX requirements, optimized content layout for readability, and conducted user testing to evaluate and refine the design.
+      </p>
+      <div class="project-tags">
+        <span class="project-tag">WordPress</span>
+        <span class="project-tag">Information Architecture</span>
+        <span class="project-tag">Content Design</span>
+        <span class="project-tag">Plugin Customization</span>
+        <span class="project-tag">UX Testing</span>
+      </div>
+      <div class="project-process">
+        <div class="process-step"><span class="process-num">01</span><span>Designed site structure and navigation for improved UX</span></div>
+        <div class="process-step"><span class="process-num">02</span><span>Customized WordPress themes & plugins for UX alignment</span></div>
+        <div class="process-step"><span class="process-num">03</span><span>Optimized content layout for readability and usability</span></div>
+        <div class="process-step"><span class="process-num">04</span><span>Evaluated design through user testing and iterated</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-name">Pham Ngoc Anh</div>
+    <div class="footer-sub">UI/UX Designer · MIS Student · Available for Internship</div>
+  </div>
+  <div class="footer-contacts">
+    <a href="mailto:phngocanh2004@gmail.com" class="footer-contact">phngocanh2004@gmail.com</a>
+    <span class="footer-contact">0334 242 004</span>
+    <span class="footer-contact">Gia Lam, Ha Noi</span>
+  </div>
+</footer>
+
+</body>
+</html>
